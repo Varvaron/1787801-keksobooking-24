@@ -29,7 +29,6 @@ const housePhotos = ['https://assets.htmlacademy.ru/content/intensive/javascript
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
 
-const userAds = [];
 const getHomeFeatures = (features) => {
   const chosenFeatures = [];
   for (let i = 0; i <= getRandomIntFromTo(0, features.length); i++) {
@@ -76,6 +75,12 @@ const createObject = (i) => {
   };
 };
 
-for (let i = 1; i <= 10; i++) {
-  userAds.push(createObject(i));
-}
+const createArray = (elements) => {
+  const userAds = [];
+  for (let i = 1; i <= elements; i++) {
+    userAds.push(createObject(i));
+  }
+  return userAds;
+};
+
+createArray(10);
