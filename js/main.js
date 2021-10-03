@@ -29,14 +29,6 @@ const housePhotos = ['https://assets.htmlacademy.ru/content/intensive/javascript
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
 
-const getHomeFeatures = (features) => {
-  const chosenFeatures = [];
-  for (let i = 0; i <= getRandomIntFromTo(0, features.length); i++) {
-    chosenFeatures.push(features[i]);
-  }
-  return chosenFeatures;
-};
-
 const createAutor = (i) => {
   if (i !== 10) {
     i = `0${  i}`;
@@ -60,7 +52,7 @@ const createOffer = (location) => ({
   guests: getRandomIntFromTo(1, 10),
   checkin: hours[getRandomIntFromTo(0, hours.length - 1)],
   checkout: hours[getRandomIntFromTo(0, hours.length - 1)],
-  features: getHomeFeatures(homeFeatures),
+  features: housePhotos.slice(0, getRandomIntFromTo(0, homeFeatures.length)),
   description: 'Уютная квартира со всеми удобствами, можно заселиться с домашними питомцами',
   photos: housePhotos.slice(0, getRandomIntFromTo(0, housePhotos.length)),
 });
