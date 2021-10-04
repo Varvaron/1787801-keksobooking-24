@@ -19,25 +19,23 @@ const getRandomFractFromTo = (min, max, digits) => {
   return Number((min + Math.random() * (max - min)).toFixed(digits));
 };
 
-getRandomIntFromTo(5, 10);
-getRandomFractFromTo(1.5, 1.7, 5);
-
-const types = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
-const hours = ['12:00', '13:00', '14:00'];
-const homeFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-const housePhotos = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
+const TYPES = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
+const HOURS = ['12:00', '13:00', '14:00'];
+const HOUSE_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+const HOUSE_PHOTOES = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
 
-const createAutor = (i) => {
-  if (i !== 10) {
-    i = `0${  i}`;
-  }
+
+const getRandomElement = (array) => array[getRandomFractFromTo(0, array.length - 1)];
+const createAuthor = (id) => {
+  id += 1;
+  id = `${  id}`;
+  const paddedId = id.padStart(2, '0');
   return {
-    avatar: `img/avatars/user${i}.png`,
+    avatar: `img/avatars/user${paddedId}.png`,
   };
 };
-
 const createLocation = () => ({
   lat: getRandomFractFromTo(35.65000, 35.70000, 5),
   lng: getRandomFractFromTo(139.70000, 139.80000, 5),
@@ -47,32 +45,25 @@ const createOffer = (location) => ({
   title: 'Сдаю квартиру посуточно',
   address: `${location.lat  }, ${  location.lng}`,
   price: getRandomIntFromTo(1000, 10000),
-  type: types[getRandomIntFromTo(0, types.length - 1)],
+  type: getRandomElement(TYPES),
   rooms: getRandomIntFromTo(1, 5),
   guests: getRandomIntFromTo(1, 10),
-  checkin: hours[getRandomIntFromTo(0, hours.length - 1)],
-  checkout: hours[getRandomIntFromTo(0, hours.length - 1)],
-  features: housePhotos.slice(0, getRandomIntFromTo(0, homeFeatures.length)),
+  checkin: getRandomElement(HOURS),
+  checkout: getRandomElement(HOURS),
+  features: HOUSE_FEATURES.slice(0, getRandomIntFromTo(1, HOUSE_FEATURES.length)),
   description: 'Уютная квартира со всеми удобствами, можно заселиться с домашними питомцами',
-  photos: housePhotos.slice(0, getRandomIntFromTo(0, housePhotos.length)),
+  photos: HOUSE_PHOTOES.slice(0, getRandomIntFromTo(1, HOUSE_PHOTOES.length)),
 });
 
-const createObject = (i) => {
+const createObject = (id) => {
   const location = createLocation();
 
   return {
-    author: createAutor(i),
+    author: createAuthor(id),
     offer: createOffer(location),
     location: location,
   };
 };
 
-const createArray = (elements) => {
-  const userAds = [];
-  for (let i = 1; i <= elements; i++) {
-    userAds.push(createObject(i));
-  }
-  return userAds;
-};
-
+const createArray = (length) => Array(length).fill(null).map((item, i) => createObject(i));
 createArray(10);
