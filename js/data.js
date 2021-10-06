@@ -1,4 +1,4 @@
-import {getRandomIntFromTo, getRandomFractFromTo} from '/utils.js';
+import {getRandomIntFromTo, getRandomFractFromTo} from './utils.js';
 
 const TYPES = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 const HOURS = ['12:00', '13:00', '14:00'];
