@@ -50,3 +50,5 @@ similarOffers.forEach(() => {
 });
 
 similarListOffer.appendChild(similarListFragment);
+
+export {similarOffers};
