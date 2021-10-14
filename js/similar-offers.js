@@ -21,7 +21,7 @@ const getPopupType = (offer) => {
   }
 };
 
-const getPopupFutures = (offer) => {
+const getPopupFeatures = (offer) => {
   const popupContainer = similarOfferTemplate.querySelector('.popup__features');
   const popupList = popupContainer.querySelectorAll('.popup__feature');
 
@@ -43,7 +43,7 @@ similarOffers.forEach(() => {
   offerElement.querySelector('.popup__type').textContent = getPopupType(offer);
   offerElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнаты для ${offer.guests}`;
   offerElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
-  offerElement.querySelector('.popup__features').textContent = getPopupFutures(offer);
+  offerElement.querySelector('.popup__features').textContent = getPopupFeatures(offer);
   offerElement.querySelector('.popup__description').textContent = offer.description;
   offerElement.querySelector('.popup__avatar').src = author.avatar;
   similarListFragment.appendChild(offerElement);
