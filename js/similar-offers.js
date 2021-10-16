@@ -1,12 +1,13 @@
 import {createArray} from './data.js';
+import {getRandomElement} from './utils.js';
 
-const similarOfferTemplate = document.querySelector('#card').content.querySelector('.popup');
-const similarListOffer = document.querySelector('#map-canvas');
+const similarOfferTemplate = document.querySelector('#card').content.querySelector('.popup'); //находим шаблон
+const similarListOffer = document.querySelector('#map-canvas'); //находим место для отрисовки в разметке
+const similarListFragment = document.createDocumentFragment(); // создаем фрагмент
+const similarOffers = createArray(10); //создаем объявления
 
-const similarOffers = createArray(10);
-const similarListFragment = document.createDocumentFragment();
-
-const getPopupType = (offer) => {
+//сопоставляем тип жилья из обекта с нужной надписью
+const getPopupType = ({ offer }) => {
   switch (offer.type) {
     case 'flat':
       return 'Квартира';
@@ -20,35 +21,52 @@ const getPopupType = (offer) => {
       return 'Отель';
   }
 };
+//оставляем только те особенности в разметке, которые есть у объявления
+const getPopupFeatures = (popupItems, { offer }) => {
+  popupItems.forEach((popupItem) => {
+    const chosenFeatures = offer.features;
+    const isChosen = chosenFeatures.some(
+      (chosenFeature) => popupItem.classList.contains(`popup__feature--${chosenFeature}`),
+    );
+    if (!isChosen) {popupItem.remove();}
+  });
 
-const getPopupFeatures = (offer) => {
-  const popupContainer = similarOfferTemplate.querySelector('.popup__features');
-  const popupList = popupContainer.querySelectorAll('.popup__feature');
+  return popupItems;
+};
 
-  popupList.forEach((popupListItem) => {
-    const choosenFeatures = offer.features;
-    const isChoosen = choosenFeatures.some(
-      (choosenFeature) => popupListItem.classList.contain(`popup__feature--${choosenFeature}`),
-  );
-  if (!isChoosen) {
-    popupListItem.remove();
-  }
-});
+//проверяем наличие описания (необязательное поле)
+// const getPopupDescription = ({offer}) => {
+//   const descriptionElement = document.querySelector('.popup__description');
+//   if (!offer.description) {
+//     descriptionElement.innerHTML = '';
+//   }
+// };
 
-similarOffers.forEach(() => {
+//добавляем нужное кол-во картинок жилья
+// const getPopupPicture = (element, {offer}) => {
+
+// };
+//клонируем шаблон и добавляем нужные данные в шаблон
+const renderPopup = (offer) => {
   const offerElement = similarOfferTemplate.cloneNode(true);
-  offerElement.querySelector('.popup__title').textContent = offer.title;
-  offerElement.querySelector('.popup__text--address').textContent = offer.adress;
-  offerElement.querySelector('.popup__text--price').textContent = `${offer.price} ₽/ночь`;
-  offerElement.querySelector('.popup__type').textContent = getPopupType(offer);
-  offerElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнаты для ${offer.guests}`;
-  offerElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
-  offerElement.querySelector('.popup__features').textContent = getPopupFeatures(offer);
-  offerElement.querySelector('.popup__description').textContent = offer.description;
-  offerElement.querySelector('.popup__avatar').src = author.avatar;
-  similarListFragment.appendChild(offerElement);
-});
+  const popupContainer = similarOfferTemplate.querySelector('.popup__features');
+  let popupList = popupContainer.querySelectorAll('.popup__feature');
+  popupList = getPopupFeatures(popupList, offer);
 
-similarListOffer.appendChild(similarListFragment);
+  similarOffers.forEach(() => {
+    offerElement.querySelector('.popup__title').textContent = offer.offer.title;
+    offerElement.querySelector('.popup__text--address').textContent = offer.offer.adress;
+    offerElement.querySelector('.popup__text--price').textContent = `${offer.offer.price} ₽/ночь`;
+    offerElement.querySelector('.popup__type').textContent = getPopupType(offer);
+    offerElement.querySelector('.popup__text--capacity').textContent = `${offer.offer.rooms} комнаты для ${offer.offer.guests} гостей`;
+    offerElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.offer.checkin}, выезд до ${offer.offer.checkout}`;
+    offerElement.querySelector('.popup__features').content = popupList;
+    offerElement.querySelector('.popup__description').textContent = offer.offer.description;
+    offerElement.querySelector('.popup__avatar').src = offer.author.avatar;
+    similarListFragment.append(offerElement);
+  });
+  similarListOffer.appendChild(similarListFragment);
+};
 
+renderPopup(getRandomElement(similarOffers));
 export {similarOffers};
