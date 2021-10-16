@@ -1,3 +1,3 @@
-import {getRandomIntFromTo, getRandomFractFromTo} from './utils.js';
+import {getRandomIntFromTo, getRandomFractFromTo, getRandomElement} from './utils.js';
 import {createArray} from './data.js';
-import {similarOffers} from './similar-offers';
+import {similarOffers} from './similar-offers.js';
