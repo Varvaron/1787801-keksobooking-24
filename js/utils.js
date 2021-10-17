@@ -19,4 +19,5 @@ const getRandomFractFromTo = (min, max, digits) => {
   return Number((min + Math.random() * (max - min)).toFixed(digits));
 };
 
-export {getRandomIntFromTo, getRandomFractFromTo};
+const getRandomElement = (array) => array[getRandomFractFromTo(0, array.length - 1)];
+export {getRandomIntFromTo, getRandomFractFromTo, getRandomElement};
