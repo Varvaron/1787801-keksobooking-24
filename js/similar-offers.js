@@ -5,7 +5,6 @@ const similarOfferTemplate = document.querySelector('#card').content.querySelect
 const similarListOffer = document.querySelector('#map-canvas'); //находим место для отрисовки в разметке
 const similarListFragment = document.createDocumentFragment(); // создаем фрагмент
 const similarOffers = createArray(10); //создаем объявления
-const offerElement = similarOfferTemplate.cloneNode(true); // клонируем шаблон
 
 //сопоставляем тип жилья из обекта с нужной надписью
 const getPopupType = (offer) => {
@@ -23,9 +22,9 @@ const getPopupType = (offer) => {
   }
 };
 // оставляем нужные особенности
-const getPopupFeatures = (offer) => {
-  offerElement.querySelector('.popup__features').innerHTML = '';
-  offer.features.forEach((userFeature) => {
+const getPopupFeatures = (offerElement, offer) => {
+  const userFeatures = offer.features;
+  userFeatures.forEach((userFeature) => {
     const chosenFeature = document.createElement('li');
     chosenFeature.classList.add('popup__feature');
     chosenFeature.classList.add(`popup__feature--${  userFeature}`);
@@ -34,9 +33,7 @@ const getPopupFeatures = (offer) => {
 };
 
 //добавляем нужное кол-во фото жилья
-const getPopupPhotos = (offer) => {
-  offerElement.querySelector('.popup__photos').innerHTML = '';
-
+const getPopupPhotos = (offerElement, offer) => {
   offer.photos.forEach((userPhoto) => {
     const photoElement = document.createElement('img');
     photoElement.classList.add('popup__photo');
@@ -49,7 +46,7 @@ const getPopupPhotos = (offer) => {
 };
 
 //проверяем поле "описание" на заполнение
-const getPopupDescription = (offer) => {
+const getPopupDescription = (offerElement, offer) => {
   if (!offer.description) {
     offerElement.querySelector('.popup__description').style = 'display:none';
     return;
@@ -60,6 +57,7 @@ const getPopupDescription = (offer) => {
 
 //добавляем нужные данные в склонированный шаблон
 const renderPopup = ({ offer, author }) => {
+  const offerElement = similarOfferTemplate.cloneNode(true);
   offerElement.querySelector('.popup__title').textContent = offer.title;
   offerElement.querySelector('.popup__text--address').textContent = offer.adress;
   offerElement.querySelector('.popup__text--price').textContent = `${offer.price} ₽/ночь`;
@@ -68,9 +66,11 @@ const renderPopup = ({ offer, author }) => {
   offerElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
   offerElement.querySelector('.popup__description').textContent = offer.description;
   offerElement.querySelector('.popup__avatar').src = author.avatar;
-  getPopupFeatures(offer);
-  getPopupPhotos(offer);
-  getPopupDescription(offer);
+  offerElement.querySelector('.popup__photos').innerHTML = '';
+  offerElement.querySelector('.popup__features').innerHTML = '';
+  getPopupFeatures(offerElement, offer);
+  getPopupPhotos(offerElement, offer);
+  getPopupDescription(offerElement, offer);
   similarListFragment.append(offerElement);
   similarListOffer.appendChild(similarListFragment);
 };
