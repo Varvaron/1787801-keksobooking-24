@@ -3,6 +3,7 @@ const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE_VALUE = 1e6;
 
 const form = document.querySelector('.ad-form');
+const submit = form.querySelector('.ad-form__submit');
 const titleInput = form.querySelector('#title');
 
 titleInput.addEventListener('input', () => {
@@ -32,5 +33,65 @@ priceInput.addEventListener('input', () => {
   }
   priceInput.reportValidity();
 });
+
+const roomNumberSelect = form.querySelector('#room_number');
+const capacitySelect = form.querySelector('#capacity');
+
+const onRoomNumberChange = () => {
+  if (roomNumberSelect.value === '1' && !capacitySelect.value === '1') {
+    capacitySelect.setCustomValidity('Можно выбрать только "для 1 гостя"');
+
+  } else if (roomNumberSelect.value === '100' && !capacitySelect.value === '0') {
+    capacitySelect.setCustomValidity('Можно выбрать только "не для гостей"');
+
+  } else if (roomNumberSelect.value === '2' && (capacitySelect.value !== '1' || capacitySelect.value !== '2')) {
+    capacitySelect.setCustomValidity('Можно выбрать "для 1 гостя" или "для 2 гостей"');
+
+  } else if (roomNumberSelect.value === '3' && capacitySelect.value === '0') {
+    capacitySelect.setCustomValidity('Значение "не для гостей" недоступно');
+
+  } else {
+    capacitySelect.setCustomValidity('');
+  }
+  capacitySelect.reportValidity();
+};
+
+const onCapacityChange = () => {
+  console.log(capacitySelect.value);
+  if (roomNumberSelect.value === '1'&& capacitySelect.value === '1') {
+    capacitySelect.setCustomValidity('');
+  } else if (roomNumberSelect.value === '100' && capacitySelect.value === '0') {
+    capacitySelect.setCustomValidity('');
+  } else if (roomNumberSelect.value === '3' && !capacitySelect.value === '0') {
+    capacitySelect.setCustomValidity('');
+  } else if ((roomNumberSelect.value === '1' || roomNumberSelect.value === '2') && capacitySelect.value === '2'){
+    capacitySelect.setCustomValidity('');
+  }
+  capacitySelect.reportValidity();
+};
+
+roomNumberSelect.addEventListener('change', onRoomNumberChange);
+capacitySelect.addEventListener('change', onCapacityChange);
+
+// roomNumberSelect.addEventListener('change', () => {
+//   console.log(roomNumberSelect.value);
+//   console.log(capacitySelect.value);
+//   if (roomNumberSelect.value === '1' && !capacitySelect.value === '1') {
+//     capacitySelect.setCustomValidity('Можно выбрать только "для 1 гостя"');
+//     submit.disabled = true;
+//   } else if (roomNumberSelect.value === '100' && !capacitySelect.value === '0') {
+//     capacitySelect.setCustomValidity('Можно выбрать только "не для гостей"');
+//     submit.disabled = true;
+//   } else if (roomNumberSelect.value === '2' && (capacitySelect.value !== '1' || capacitySelect.value !== '2')) {
+//     capacitySelect.setCustomValidity('Можно выбрать "для 1 гостя" или "для 2 гостей"');
+//     submit.disabled = true;
+//   } else if (roomNumberSelect.value === '3' && capacitySelect.value === '0') {
+//     capacitySelect.setCustomValidity('Значение "не для гостей" недоступно');
+//     submit.disabled = true;
+//   } else {
+//     capacitySelect.setCustomValidity('');
+//   }
+//   capacitySelect.reportValidity();
+// });
 
 
