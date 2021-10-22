@@ -56,7 +56,7 @@ const onRoomCapacityChange = () => {
 roomNumberSelect.addEventListener('change', onRoomCapacityChange);
 capacitySelect.addEventListener('change', onRoomCapacityChange);
 
-form.addEventListener('click', (evt) => {
+form.addEventListener('submit', (evt) => {
   if (!capacitySelect.checkValidity()) {
     capacitySelect.style = 'box-shadow: 0 0 2px 2px red';
     evt.preventDefault();
