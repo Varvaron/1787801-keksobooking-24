@@ -11,7 +11,7 @@ const capacitySelect = form.querySelector('#capacity');
 
 titleInput.addEventListener('input', () => {
   const titleLength = titleInput.value.length;
-  if (titleLength < MIN_TITLE_LENGTH ) {
+  if (titleLength < MIN_TITLE_LENGTH) {
     titleInput.setCustomValidity(`Мин. длина заголовка - ${ MIN_TITLE_LENGTH} симв. Введите еще ${ MIN_TITLE_LENGTH - titleLength } симв.`);
     titleInput.style = 'box-shadow: 0 0 2px 2px red';
   } else if (titleLength > MAX_TITLE_LENGTH) {
@@ -22,7 +22,6 @@ titleInput.addEventListener('input', () => {
   }
   titleInput.reportValidity();
 });
-
 
 priceInput.addEventListener('input', () => {
   const priceValue = priceInput.value;
@@ -37,7 +36,7 @@ priceInput.addEventListener('input', () => {
 });
 
 
-const onSelectChange = () => {
+const onRoomCapacityChange = () => {
   const rooms = +roomNumberSelect.value;
   const capacity = +capacitySelect.value;
   capacitySelect.style = 'box-shadow: 0 0 2px 2px red';
@@ -54,6 +53,12 @@ const onSelectChange = () => {
   capacitySelect.reportValidity();
 };
 
-roomNumberSelect.addEventListener('change', onSelectChange);
-capacitySelect.addEventListener('change', onSelectChange);
+roomNumberSelect.addEventListener('change', onRoomCapacityChange);
+capacitySelect.addEventListener('change', onRoomCapacityChange);
 
+form.addEventListener('click', (evt) => {
+  if (!capacitySelect.checkValidity()) {
+    capacitySelect.style = 'box-shadow: 0 0 2px 2px red';
+    evt.preventDefault();
+  }
+});
