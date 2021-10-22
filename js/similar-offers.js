@@ -23,8 +23,7 @@ const getPopupType = (offer) => {
 };
 // оставляем нужные особенности
 const getPopupFeatures = (offerElement, offer) => {
-  const userFeatures = offer.features;
-  userFeatures.forEach((userFeature) => {
+  offer.features.forEach((userFeature) => {
     const chosenFeature = document.createElement('li');
     chosenFeature.classList.add('popup__feature');
     chosenFeature.classList.add(`popup__feature--${  userFeature}`);
@@ -51,7 +50,6 @@ const getPopupDescription = (offerElement, offer) => {
     offerElement.querySelector('.popup__description').style = 'display:none';
     return;
   }
-
   offerElement.querySelector('.popup__description').textContent = offer.description;
 };
 
@@ -66,8 +64,8 @@ const renderPopup = ({ offer, author }) => {
   offerElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
   offerElement.querySelector('.popup__description').textContent = offer.description;
   offerElement.querySelector('.popup__avatar').src = author.avatar;
-  offerElement.querySelector('.popup__photos').innerHTML = '';
   offerElement.querySelector('.popup__features').innerHTML = '';
+  offerElement.querySelector('.popup__photos').innerHTML = '';
   getPopupFeatures(offerElement, offer);
   getPopupPhotos(offerElement, offer);
   getPopupDescription(offerElement, offer);
