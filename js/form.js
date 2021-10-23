@@ -18,7 +18,6 @@ const switchInactiveMode = () => {
   mapFilters.classList.add('map__filters--disabled');
   mapFilters.disabled = true;
 };
-switchInactiveMode();
 
 const switchActiveMode = () => {
   form.classList.remove('ad-form--disabled');
@@ -28,7 +27,6 @@ const switchActiveMode = () => {
   mapFilters.classList.remove('map__filters--disabled');
   mapFilters.disabled = false;
 };
-switchActiveMode();
 
 titleInput.addEventListener('input', () => {
   const titleLength = titleInput.value.length;
@@ -83,3 +81,5 @@ form.addEventListener('submit', (evt) => {
     evt.preventDefault();
   }
 });
+
+export {switchInactiveMode, switchActiveMode};
