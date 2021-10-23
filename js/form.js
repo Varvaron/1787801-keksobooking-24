@@ -7,7 +7,28 @@ const titleInput = form.querySelector('#title');
 const priceInput = form.querySelector('#price');
 const roomNumberSelect = form.querySelector('#room_number');
 const capacitySelect = form.querySelector('#capacity');
+const formFieldsets = form.querySelectorAll('fieldset');
+const mapFilters = document.querySelector('.map__filters');
 
+const switchInactiveMode = () => {
+  form.classList.add('ad-form--disabled');
+  formFieldsets.forEach((formFieldset) => {
+    formFieldset.disabled = true;
+  });
+  mapFilters.classList.add('map__filters--disabled');
+  mapFilters.disabled = true;
+};
+switchInactiveMode();
+
+const switchActiveMode = () => {
+  form.classList.remove('ad-form--disabled');
+  formFieldsets.forEach((formFieldset) => {
+    formFieldset.disabled = false;
+  });
+  mapFilters.classList.remove('map__filters--disabled');
+  mapFilters.disabled = false;
+};
+switchActiveMode();
 
 titleInput.addEventListener('input', () => {
   const titleLength = titleInput.value.length;
