@@ -1,5 +1,4 @@
 import {createArray} from './data.js';
-import {getRandomElement} from './utils.js';
 
 const similarOfferTemplate = document.querySelector('#card').content.querySelector('.popup'); //находим шаблон
 const similarListOffer = document.querySelector('#map-canvas'); //находим место для отрисовки в разметке
@@ -72,7 +71,5 @@ const renderPopup = ({ offer, author }) => {
   similarListFragment.append(offerElement);
   similarListOffer.appendChild(similarListFragment);
 };
-
-renderPopup(getRandomElement(similarOffers));
 
 export {renderPopup};
