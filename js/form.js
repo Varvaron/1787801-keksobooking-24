@@ -12,7 +12,9 @@ const mapFilters = document.querySelector('.map__filters');
 
 const switchInactiveMode = () => {
   form.classList.add('ad-form--disabled');
-  formFieldsets.disabled = true;
+  formFieldsets.forEach((formFieldset) => {
+    formFieldset.disabled = true;
+  });
   mapFilters.classList.add('map__filters--disabled');
   mapFilters.disabled = true;
 };
@@ -20,7 +22,9 @@ switchInactiveMode();
 
 const switchActiveMode = () => {
   form.classList.remove('ad-form--disabled');
-  formFieldsets.disabled = false;
+  formFieldsets.forEach((formFieldset) => {
+    formFieldset.disabled = false;
+  });
   mapFilters.classList.remove('map__filters--disabled');
   mapFilters.disabled = false;
 };
