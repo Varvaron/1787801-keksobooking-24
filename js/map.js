@@ -1,4 +1,5 @@
 import {switchActiveMode, switchInactiveMode} from './form.js';
+const addressInput = document.querySelector('#address');
 switchInactiveMode();
 
 const map = L.map('map-canvas').on('load', () => {
@@ -33,3 +34,9 @@ const mainPin = L.marker(
   },
 );
 mainPin.addTo(map);
+addressInput.value = '35.681729, 139.753927';
+
+mainPin.on('moveend', (evt) => {
+  const mainPinCoordinates = evt.target.getLatLng();
+  addressInput.value = `${mainPinCoordinates.lat.toFixed(5)}, ${mainPinCoordinates.lng.toFixed(5)}`;
+});
