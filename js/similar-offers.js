@@ -72,4 +72,4 @@ const renderPopup = ({ offer, author }) => {
   similarListOffer.appendChild(similarListFragment);
 };
 
-export {renderPopup};
+export {similarOffers, renderPopup};
