@@ -1,5 +1,5 @@
 import {switchActiveMode, switchInactiveMode} from './form.js';
-import {similarOffers, renderPopup} from './similar-offers.js';
+import {renderPopup} from './similar-offers.js';
 
 const addressInput = document.querySelector('#address');
 switchInactiveMode();
@@ -63,5 +63,3 @@ const createMarker = (offers) => {
     marker.addTo(map).bindPopup(renderPopup(offer));
   });
 };
-
-createMarker(similarOffers);

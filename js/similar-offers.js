@@ -1,9 +1,7 @@
 import {createArray} from './data.js';
 
 const similarOfferTemplate = document.querySelector('#card').content.querySelector('.popup'); //находим шаблон
-const similarListOffer = document.querySelector('#map-canvas'); //находим место для отрисовки в разметке
 const similarListFragment = document.createDocumentFragment(); // создаем фрагмент
-const similarOffers = createArray(10); //создаем объявления
 
 //сопоставляем тип жилья из обекта с нужной надписью
 const getPopupType = (offer) => {
@@ -69,9 +67,8 @@ const renderPopup = ({ offer, author }) => {
   getPopupPhotos(offerElement, offer);
   getPopupDescription(offerElement, offer);
   similarListFragment.append(offerElement);
-  similarListOffer.appendChild(similarListFragment);
 
   return offerElement;
 };
 
-export {similarOffers, renderPopup};
+export {renderPopup};

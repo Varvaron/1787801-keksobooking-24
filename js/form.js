@@ -9,6 +9,7 @@ const roomNumberSelect = form.querySelector('#room_number');
 const capacitySelect = form.querySelector('#capacity');
 const formFieldsets = form.querySelectorAll('fieldset');
 const mapFilters = document.querySelector('.map__filters');
+const houseType = form.querySelector('#type');
 
 const switchInactiveMode = () => {
   form.classList.add('ad-form--disabled');
@@ -74,6 +75,27 @@ const onRoomCapacityChange = () => {
 
 roomNumberSelect.addEventListener('change', onRoomCapacityChange);
 capacitySelect.addEventListener('change', onRoomCapacityChange);
+
+const onHouseTypeChange = (house) => {
+  switch (house.value) {
+    case 'bungalow':
+      priceInput.placeholder = 0;
+      return;
+    case 'flat':
+      priceInput.placeholder = 1000;
+      return;
+    case 'hotel':
+      priceInput.placeholder = 3000;
+      return;
+    case 'house':
+      priceInput.placeholder = 5000;
+      return;
+    case 'palace':
+      priceInput.placeholder = 10000;
+  }
+};
+
+houseType.addEventListener('change', onHouseTypeChange);
 
 form.addEventListener('submit', (evt) => {
   if (!capacitySelect.checkValidity()) {
