@@ -1,10 +1,8 @@
 import {switchActiveMode, switchInactiveMode} from './form.js';
 import {renderPopup} from './similar-offers.js';
-//import {similarOffers} from './api.js';
-
-const addressInput = document.querySelector('#address');
 switchInactiveMode();
 
+const addressInput = document.querySelector('#address');
 const map = L.map('map-canvas').on('load', () => {
   switchActiveMode();
   addressInput.value = '35.681729, 139.753927';
