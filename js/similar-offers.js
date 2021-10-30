@@ -18,7 +18,7 @@ const getPopupType = (offer) => {
 };
 // оставляем нужные особенности
 const getPopupFeatures = (offerElement, offer) => {
-  if (offer.features !== undefined) {
+  if (offer.features) {
     offer.features.forEach((userFeature) => {
       const chosenFeature = document.createElement('li');
       chosenFeature.classList.add('popup__feature');
@@ -30,7 +30,7 @@ const getPopupFeatures = (offerElement, offer) => {
 
 //добавляем нужное кол-во фото жилья
 const getPopupPhotos = (offerElement, offer) => {
-  if (offer.photos !== undefined) {
+  if (offer.photos) {
     offer.photos.forEach((userPhoto) => {
       const photoElement = document.createElement('img');
       photoElement.classList.add('popup__photo');
