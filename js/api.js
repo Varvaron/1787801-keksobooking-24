@@ -1,5 +1,5 @@
 import {createMarker} from './map.js';
-import {createErrorMessage} from './errors.js';
+import {createErrorMessage} from './alerts.js';
 
 fetch('https://24.javascript.pages.academy/keksobooking/data')
   .then((response) => {
