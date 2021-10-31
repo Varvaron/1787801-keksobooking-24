@@ -18,29 +18,33 @@ const getPopupType = (offer) => {
 };
 // оставляем нужные особенности
 const getPopupFeatures = (offerElement, offer) => {
-  if (offer.features) {
-    offer.features.forEach((userFeature) => {
-      const chosenFeature = document.createElement('li');
-      chosenFeature.classList.add('popup__feature');
-      chosenFeature.classList.add(`popup__feature--${  userFeature}`);
-      offerElement.querySelector('.popup__features').appendChild(chosenFeature);
-    });
+  if (!offer.features) {
+    offerElement.querySelector('.popup__features').style.display = 'none';
+    return;
   }
+  offer.features.forEach((userFeature) => {
+    const chosenFeature = document.createElement('li');
+    chosenFeature.classList.add('popup__feature');
+    chosenFeature.classList.add(`popup__feature--${  userFeature}`);
+    offerElement.querySelector('.popup__features').appendChild(chosenFeature);
+  });
 };
 
 //добавляем нужное кол-во фото жилья
 const getPopupPhotos = (offerElement, offer) => {
-  if (offer.photos) {
-    offer.photos.forEach((userPhoto) => {
-      const photoElement = document.createElement('img');
-      photoElement.classList.add('popup__photo');
-      photoElement.src = userPhoto;
-      photoElement.width = 45;
-      photoElement.height = 40;
-      photoElement.alt = 'Фотография жилья';
-      offerElement.querySelector('.popup__photos').appendChild(photoElement);
-    });
+  if (!offer.photos) {
+    offerElement.querySelector('.popup__photos').style.display = 'none';
+    return;
   }
+  offer.photos.forEach((userPhoto) => {
+    const photoElement = document.createElement('img');
+    photoElement.classList.add('popup__photo');
+    photoElement.src = userPhoto;
+    photoElement.width = 45;
+    photoElement.height = 40;
+    photoElement.alt = 'Фотография жилья';
+    offerElement.querySelector('.popup__photos').appendChild(photoElement);
+  });
 };
 
 //проверяем поле "описание" на заполнение
