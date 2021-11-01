@@ -14,4 +14,25 @@ const createErrorMessage = (message) => {
   return errorContainer;
 };
 
-export {createErrorMessage};
+
+const showSuccessMessage = () => {
+  const successTemplate = document.querySelector('#success').content.querySelector('.success');
+  const successFragment = document.createDocumentFragment();
+
+  const successMessage = successTemplate.cloneNode(true);
+  successFragment.append(successMessage);
+  document.body.append(successFragment);
+  return successMessage;
+};
+
+const showErrorMessage = () => {
+  const errorTemplate = document.querySelector('#error').content.querySelector('.error');
+  const errorFragment = document.createDocumentFragment();
+
+  const errorMessage = errorTemplate.cloneNode(true);
+  errorFragment.append(errorMessage);
+  document.body.append(errorFragment);
+  return errorMessage;
+};
+
+export {createErrorMessage, showSuccessMessage, showErrorMessage};
