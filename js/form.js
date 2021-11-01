@@ -1,5 +1,3 @@
-import {createErrorMessage, showSuccessMessage, showErrorMessage} from './alerts.js';
-
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE_VALUE = 1e6;
@@ -77,34 +75,11 @@ const onRoomCapacityChange = () => {
 roomNumberSelect.addEventListener('change', onRoomCapacityChange);
 capacitySelect.addEventListener('change', onRoomCapacityChange);
 
-const setUserFormSubmit = (onSuccess) => {
+
   form.addEventListener('submit', (evt) => {
     if (!capacitySelect.checkValidity()) {
       capacitySelect.style.boxShadow = '0 0 2px 2px red';
       evt.preventDefault();
     }
-    evt.preventDefault();
 
-    const formData = new FormData(evt.target);
-    fetch(
-      'https://24.javascript.pages.academy/keksobooking',
-      {
-        method: 'POST',
-        body: formData,
-        enctype: 'multipart/form-data',
-      },
-    ).then((response) => {
-      if (response.ok) {
-        showSuccessMessage();
-        onSuccess();
-      } else {
-        showErrorMessage();
-      }
-    })
-      .catch(() => {
-        showErrorMessage();
-      });
-  });
-};
-
-export {switchInactiveMode, switchActiveMode, setUserFormSubmit};
+export {switchInactiveMode, switchActiveMode};
