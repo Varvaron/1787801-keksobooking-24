@@ -1,3 +1,5 @@
+import {createErrorMessage, showSuccessMessage, showErrorMessage} from './alerts.js';
+
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE_VALUE = 1e6;
@@ -89,11 +91,20 @@ const setUserFormSubmit = (onSuccess) => {
       {
         method: 'POST',
         body: formData,
-        type: 'multipart/form-data',
+        enctype: 'multipart/form-data',
       },
-    ).then(() => onSuccess());
+    ).then((response) => {
+      if (response.ok) {
+        showSuccessMessage();
+        onSuccess();
+      } else {
+        showErrorMessage();
+      }
+    })
+      .catch(() => {
+        showErrorMessage();
+      });
   });
 };
-
 
 export {switchInactiveMode, switchActiveMode, setUserFormSubmit};
