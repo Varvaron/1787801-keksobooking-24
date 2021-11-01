@@ -82,16 +82,18 @@ const setUserFormSubmit = (onSuccess) => {
       evt.preventDefault();
     }
     evt.preventDefault();
+
     const formData = new FormData(evt.target);
     fetch(
       'https://24.javascript.pages.academy/keksobooking',
       {
         method: 'POST',
         body: formData,
+        type: 'multipart/form-data',
       },
-    );
-  })
-}
+    ).then(() => onSuccess());
+  });
+};
 
 
 export {switchInactiveMode, switchActiveMode, setUserFormSubmit};
