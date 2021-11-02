@@ -76,10 +76,11 @@ roomNumberSelect.addEventListener('change', onRoomCapacityChange);
 capacitySelect.addEventListener('change', onRoomCapacityChange);
 
 
-  form.addEventListener('submit', (evt) => {
-    if (!capacitySelect.checkValidity()) {
-      capacitySelect.style.boxShadow = '0 0 2px 2px red';
-      evt.preventDefault();
-    }
+form.addEventListener('submit', (evt) => {
+  if (!capacitySelect.checkValidity()) {
+    capacitySelect.style.boxShadow = '0 0 2px 2px red';
+    evt.preventDefault();
+  }
+});
 
-export {switchInactiveMode, switchActiveMode};
+export {switchInactiveMode, switchActiveMode, form};
