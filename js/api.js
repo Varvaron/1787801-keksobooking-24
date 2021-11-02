@@ -1,4 +1,4 @@
-import {createMarker, returnMainPin} from './map.js';
+import {createMarker, returnDefaultMapView} from './map.js';
 import {createErrorMessage, showSuccessMessage, showErrorMessage} from './alerts.js';
 import {form} from './form.js';
 
@@ -18,7 +18,6 @@ const getData = () => {
       createMarker(similarOffers.slice(0, MAX_OFFERS_NUMBER));
     });
 };
-getData();
 
 const setData = () => {
   form.addEventListener('submit', (evt) => {
@@ -36,7 +35,7 @@ const setData = () => {
       if (response.ok) {
         showSuccessMessage();
         evt.target.reset();
-        returnMainPin();
+        returnDefaultMapView();
       } else {
         showErrorMessage();
       }

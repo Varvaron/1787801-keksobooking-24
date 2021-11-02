@@ -3,6 +3,7 @@ import {renderPopup} from './similar-offers.js';
 
 const DEFAULT_LAT = 35.681729;
 const DEFAULT_LNG = 139.753927;
+
 switchInactiveMode();
 
 const addressInput = document.querySelector('#address');
@@ -64,10 +65,11 @@ const createMarker = (offers) => {
       icon: similarOfferIcon,
     });
     marker.addTo(map).bindPopup(renderPopup(offer));
+    return marker;
   });
 };
 
-const returnMainPin = () => {
+const returnDefaultMapView = () => {
   map.setView({
     lat: DEFAULT_LAT,
     lng: DEFAULT_LNG,
@@ -77,7 +79,8 @@ const returnMainPin = () => {
     lat: DEFAULT_LAT,
     lng: DEFAULT_LNG,
   });
-  addressInput.value = `${ DEFAULT_LAT}, ${DEFAULT_LNG}`;
+
+  map.closePopup();
 };
 
-export {createMarker, returnMainPin};
+export {createMarker, returnDefaultMapView};
