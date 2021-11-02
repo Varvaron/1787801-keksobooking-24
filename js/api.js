@@ -1,6 +1,8 @@
-import {createMarker} from './map.js';
+import {createMarker, returnMainPin} from './map.js';
 import {createErrorMessage, showSuccessMessage, showErrorMessage} from './alerts.js';
 import {form} from './form.js';
+
+const MAX_OFFERS_NUMBER = 10;
 
 const getData = () => {
   fetch('https://24.javascript.pages.academy/keksobooking/data')
@@ -13,7 +15,7 @@ const getData = () => {
     })
     .then((response) => response.json())
     .then((similarOffers) => {
-      createMarker(similarOffers.slice(0, 10));
+      createMarker(similarOffers.slice(0, MAX_OFFERS_NUMBER));
     });
 };
 getData();
@@ -33,6 +35,8 @@ const setData = () => {
     ).then((response) => {
       if (response.ok) {
         showSuccessMessage();
+        evt.target.reset();
+        returnMainPin();
       } else {
         showErrorMessage();
       }

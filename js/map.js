@@ -1,15 +1,18 @@
 import {switchActiveMode, switchInactiveMode} from './form.js';
 import {renderPopup} from './similar-offers.js';
+
+const DEFAULT_LAT = 35.681729;
+const DEFAULT_LNG = 139.753927;
 switchInactiveMode();
 
 const addressInput = document.querySelector('#address');
 const map = L.map('map-canvas').on('load', () => {
   switchActiveMode();
-  addressInput.value = '35.681729, 139.753927';
+  addressInput.value = `${ DEFAULT_LAT}, ${DEFAULT_LNG}`;
 })
   .setView({
-    lat: 35.681729,
-    lng: 139.753927,
+    lat: DEFAULT_LAT,
+    lng: DEFAULT_LNG,
   }, 10);
 
 L.tileLayer(
@@ -25,10 +28,11 @@ const mainPinIcon = L.icon({
   iconAnchor: [26, 52],
 });
 
+
 const mainPin = L.marker(
   {
-    lat: 35.681729,
-    lng: 139.753927,
+    lat: DEFAULT_LAT,
+    lng: DEFAULT_LNG,
   },
   {
     draggable: true,
@@ -63,4 +67,17 @@ const createMarker = (offers) => {
   });
 };
 
-export {createMarker};
+const returnMainPin = () => {
+  map.setView({
+    lat: DEFAULT_LAT,
+    lng: DEFAULT_LNG,
+  }, 10);
+
+  mainPin.setLatLng({
+    lat: DEFAULT_LAT,
+    lng: DEFAULT_LNG,
+  });
+  addressInput.value = `${ DEFAULT_LAT}, ${DEFAULT_LNG}`;
+};
+
+export {createMarker, returnMainPin};
