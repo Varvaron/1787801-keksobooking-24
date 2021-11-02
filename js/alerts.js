@@ -35,4 +35,16 @@ const showErrorMessage = () => {
   return errorMessage;
 };
 
-export {createErrorMessage, showSuccessMessage, showErrorMessage};
+const closeAnyMessage = (element) => {
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape') {
+      evt.preventDefault();
+      element.classList.add('hidden');
+    }
+  });
+  window.addEventListener('click', () => {
+    element.classList.add('hidden');
+  });
+};
+
+export {createErrorMessage, showSuccessMessage, showErrorMessage, closeAnyMessage};

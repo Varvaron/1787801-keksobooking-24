@@ -1,5 +1,5 @@
 import {createMarker, returnDefaultMapView} from './map.js';
-import {createErrorMessage, showSuccessMessage, showErrorMessage} from './alerts.js';
+import {createErrorMessage, showSuccessMessage, showErrorMessage, closeAnyMessage} from './alerts.js';
 import {form} from './form.js';
 
 const MAX_OFFERS_NUMBER = 10;
@@ -36,12 +36,15 @@ const setData = () => {
         showSuccessMessage();
         evt.target.reset();
         returnDefaultMapView();
+        closeAnyMessage(document.querySelector('.success'));
       } else {
         showErrorMessage();
+        closeAnyMessage(document.querySelector('.error'));
       }
     })
       .catch(() => {
         showErrorMessage();
+        closeAnyMessage(document.querySelector('.error'));
       });
   });
 
