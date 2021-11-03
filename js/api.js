@@ -19,7 +19,7 @@ const getData = () => {
     });
 };
 
-const setData = () => {
+const sendData = () => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
@@ -49,5 +49,5 @@ const setData = () => {
   });
 
 };
-
-export {getData, setData};
+getData();
+sendData();
