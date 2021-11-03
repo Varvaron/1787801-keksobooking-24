@@ -1,9 +1,5 @@
-import {createArray} from './data.js';
-
 const similarOfferTemplate = document.querySelector('#card').content.querySelector('.popup'); //находим шаблон
-const similarListOffer = document.querySelector('#map-canvas'); //находим место для отрисовки в разметке
 const similarListFragment = document.createDocumentFragment(); // создаем фрагмент
-const similarOffers = createArray(10); //создаем объявления
 
 //сопоставляем тип жилья из обекта с нужной надписью
 const getPopupType = (offer) => {
@@ -22,6 +18,10 @@ const getPopupType = (offer) => {
 };
 // оставляем нужные особенности
 const getPopupFeatures = (offerElement, offer) => {
+  if (!offer.features) {
+    offerElement.querySelector('.popup__features').style.display = 'none';
+    return;
+  }
   offer.features.forEach((userFeature) => {
     const chosenFeature = document.createElement('li');
     chosenFeature.classList.add('popup__feature');
@@ -32,6 +32,10 @@ const getPopupFeatures = (offerElement, offer) => {
 
 //добавляем нужное кол-во фото жилья
 const getPopupPhotos = (offerElement, offer) => {
+  if (!offer.photos) {
+    offerElement.querySelector('.popup__photos').style.display = 'none';
+    return;
+  }
   offer.photos.forEach((userPhoto) => {
     const photoElement = document.createElement('img');
     photoElement.classList.add('popup__photo');
@@ -53,10 +57,11 @@ const getPopupDescription = (offerElement, offer) => {
 };
 
 //добавляем нужные данные в склонированный шаблон
-const renderPopup = ({ offer, author }) => {
+const renderPopup = ({ offer, author}) => {
   const offerElement = similarOfferTemplate.cloneNode(true);
+
   offerElement.querySelector('.popup__title').textContent = offer.title;
-  offerElement.querySelector('.popup__text--address').textContent = offer.adress;
+  offerElement.querySelector('.popup__text--address').textContent = offer.address;
   offerElement.querySelector('.popup__text--price').textContent = `${offer.price} ₽/ночь`;
   offerElement.querySelector('.popup__type').textContent = getPopupType(offer);
   offerElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнаты для ${offer.guests} гостей`;
@@ -69,9 +74,6 @@ const renderPopup = ({ offer, author }) => {
   getPopupPhotos(offerElement, offer);
   getPopupDescription(offerElement, offer);
   similarListFragment.append(offerElement);
-  similarListOffer.appendChild(similarListFragment);
-
   return offerElement;
 };
-
-export {similarOffers, renderPopup};
+export {renderPopup};
