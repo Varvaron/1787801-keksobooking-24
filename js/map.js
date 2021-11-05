@@ -7,6 +7,7 @@ const DEFAULT_LNG = 139.753927;
 switchInactiveMode();
 
 const addressInput = document.querySelector('#address');
+
 const map = L.map('map-canvas').on('load', () => {
   switchActiveMode();
   addressInput.value = `${ DEFAULT_LAT}, ${DEFAULT_LNG}`;
@@ -55,6 +56,8 @@ const similarOfferIcon = L.icon({
   iconAnchor: [20, 40],
 });
 
+const markerGroup = L.layerGroup().addTo(map);
+
 const createMarker = (offers) => {
   offers.forEach((offer) => {
     const marker = L.marker({
@@ -64,9 +67,13 @@ const createMarker = (offers) => {
     {
       icon: similarOfferIcon,
     });
-    marker.addTo(map).bindPopup(renderPopup(offer));
+    marker.addTo(markerGroup).bindPopup(renderPopup(offer));
     return marker;
   });
+};
+
+const deleteMarker = () => {
+  markerGroup.clearLayers();
 };
 
 const returnDefaultMapView = () => {
@@ -83,4 +90,4 @@ const returnDefaultMapView = () => {
   map.closePopup();
 };
 
-export {createMarker, returnDefaultMapView};
+export {createMarker, returnDefaultMapView, deleteMarker};
