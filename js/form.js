@@ -83,4 +83,4 @@ form.addEventListener('submit', (evt) => {
   }
 });
 
-export {switchInactiveMode, switchActiveMode, form};
+export {switchInactiveMode, switchActiveMode, form, mapFilters};

@@ -1,6 +1,7 @@
 import {createMarker, returnDefaultMapView} from './map.js';
 import {createErrorMessage, showSuccessMessage, showErrorMessage, closeAnyMessage} from './alerts.js';
 import {form} from './form.js';
+import {setFilterListener} from './filters.js';
 
 const MAX_OFFERS_NUMBER = 10;
 
@@ -15,6 +16,7 @@ const getData = () => {
     })
     .then((response) => response.json())
     .then((similarOffers) => {
+      similarOffers.filter(setFilterListener);
       createMarker(similarOffers.slice(0, MAX_OFFERS_NUMBER));
     });
 };
