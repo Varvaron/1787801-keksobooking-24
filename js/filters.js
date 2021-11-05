@@ -1,5 +1,7 @@
 import {mapFilters} from './form.js';
+import {createMarker, deleteMarker} from './map.js';
 
+const MAX_OFFERS_NUMBER = 10;
 const housingType = mapFilters.querySelector('#housing-type');
 
 const onFilterChange = ({ offer }) => {
@@ -14,8 +16,13 @@ const onFilterChange = ({ offer }) => {
   }
 
 };
-const setFilterListener = (offer) => {
-  mapFilters.addEventListener('change', () => onFilterChange(offer));
+const setFilterListener = (offers) => {
+  mapFilters.addEventListener('change', () => {
+    const filteredOffers = offers.filter(offer => offer.offer.type === housingType.value || housingType.value === 'any');
+    deleteMarker();
+    createMarker(filteredOffers.slice(0, 10));
+    return filteredOffers;
+  });
 };
 
-export {setFilterListener};
+export {MAX_OFFERS_NUMBER, setFilterListener};
