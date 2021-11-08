@@ -1,8 +1,7 @@
 import {createMarker, returnDefaultMapView} from './map.js';
 import {createErrorMessage, showSuccessMessage, showErrorMessage, closeAnyMessage} from './alerts.js';
 import {form} from './form.js';
-
-const MAX_OFFERS_NUMBER = 10;
+import {MAX_OFFERS_NUMBER, setFilterListener} from './filters.js';
 
 const getData = () => {
   fetch('https://24.javascript.pages.academy/keksobooking/data')
@@ -16,6 +15,7 @@ const getData = () => {
     .then((response) => response.json())
     .then((similarOffers) => {
       createMarker(similarOffers.slice(0, MAX_OFFERS_NUMBER));
+      setFilterListener(similarOffers);
     });
 };
 
