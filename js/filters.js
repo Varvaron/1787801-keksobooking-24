@@ -26,9 +26,7 @@ const chooseFeatures = (offer) => {
   if (!offer.offer.features) {
     return false;
   }
-  const filteredFeatures = featuresValue.every((value) => offer.offer.features.includes(value));
-
-  return filteredFeatures;
+  return featuresValue.every((value) => offer.offer.features.includes(value));
 };
 
 const setFilterListener = (offers) => {
