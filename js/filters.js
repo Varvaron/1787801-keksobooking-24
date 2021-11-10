@@ -38,4 +38,14 @@ const setFilterListener = (offers) => {
   },
   ));
 };
-export {MAX_OFFERS_NUMBER, setFilterListener};
+const clearFilters = () => {
+  housingType.value = 'any';
+  housingPrice.value = 'any';
+  housingRooms.value = 'any';
+  housingGuests.value = 'any';
+  const housingFeatures = mapFilters.querySelectorAll('.map__checkbox:checked');
+  housingFeatures.forEach((housingFeature) => {
+    housingFeature.checked = false;
+  });
+};
+export {MAX_OFFERS_NUMBER, setFilterListener, clearFilters};

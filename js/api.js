@@ -1,7 +1,8 @@
-import {createMarker, returnDefaultMapView} from './map.js';
+import {createMarker, returnDefaultMapView, deleteMarker} from './map.js';
 import {createErrorMessage, showSuccessMessage, showErrorMessage, closeAnyMessage} from './alerts.js';
 import {form} from './form.js';
 import {MAX_OFFERS_NUMBER, setFilterListener} from './filters.js';
+import {clearFiltersAndForm} from './reset-form.js';
 
 const getData = () => {
   fetch('https://24.javascript.pages.academy/keksobooking/data')
@@ -10,12 +11,12 @@ const getData = () => {
         return response;
       }
       throw new Error(createErrorMessage('Не удалось загрузить данные с сервера'));
-
     })
     .then((response) => response.json())
     .then((similarOffers) => {
       createMarker(similarOffers.slice(0, MAX_OFFERS_NUMBER));
       setFilterListener(similarOffers);
+      clearFiltersAndForm(similarOffers);
     });
 };
 
@@ -35,6 +36,7 @@ const sendData = () => {
       if (response.ok) {
         showSuccessMessage();
         evt.target.reset();
+        deleteMarker();
         returnDefaultMapView();
         closeAnyMessage(document.querySelector('.success'));
       } else {
