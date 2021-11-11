@@ -5,12 +5,16 @@ import {MAX_OFFERS_NUMBER, clearFilters} from './filters.js';
 const resetButton = form.querySelector('.ad-form__reset');
 
 const clearFiltersAndForm = (offers) => {
-  resetButton.addEventListener('click', () => {
-    clearFilters();
-    returnDefaultMapView();
-    deleteMarker();
-    createMarker(offers.slice(0, MAX_OFFERS_NUMBER));
-  });
+  clearFilters();
+  returnDefaultMapView();
+  deleteMarker();
+  createMarker(offers.slice(0, MAX_OFFERS_NUMBER));
 };
 
-export {clearFiltersAndForm};
+let currentData;
+resetButton.addEventListener('click', () => clearFiltersAndForm(currentData));
+form.addEventListener('submit', () => clearFiltersAndForm(currentData));
+
+export const updateData = (data) => {
+  currentData = data;
+};
