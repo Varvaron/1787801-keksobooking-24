@@ -1,3 +1,5 @@
+import {mapFilters} from './form.js';
+
 const createErrorMessage = (message) => {
   const errorContainer = document.createElement('p');
   const main = document.querySelector('main');
@@ -11,6 +13,8 @@ const createErrorMessage = (message) => {
   errorContainer.textContent = message;
 
   document.body.insertBefore(errorContainer, main);
+  mapFilters.classList.add('map__filters--disabled');
+  mapFilters.disabled = true;
   return errorContainer;
 };
 

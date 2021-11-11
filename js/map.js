@@ -3,10 +3,8 @@ import {renderPopup} from './similar-offers.js';
 
 const DEFAULT_LAT = 35.681729;
 const DEFAULT_LNG = 139.753927;
-
-switchInactiveMode();
-
 const addressInput = document.querySelector('#address');
+switchInactiveMode();
 
 const map = L.map('map-canvas').on('load', () => {
   switchActiveMode();

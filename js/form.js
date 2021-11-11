@@ -1,6 +1,5 @@
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
-const MAX_PRICE_VALUE = 1e6;
 
 const form = document.querySelector('.ad-form');
 const titleInput = form.querySelector('#title');
@@ -8,6 +7,9 @@ const priceInput = form.querySelector('#price');
 const roomNumberSelect = form.querySelector('#room_number');
 const capacitySelect = form.querySelector('#capacity');
 const formFieldsets = form.querySelectorAll('fieldset');
+const timeInSelect = form.querySelector('#timein');
+const timeOutSelect = form.querySelector('#timeout');
+const houseTypeSelect = form.querySelector('#type');
 const mapFilters = document.querySelector('.map__filters');
 
 const switchInactiveMode = () => {
@@ -42,10 +44,30 @@ titleInput.addEventListener('input', () => {
   titleInput.reportValidity();
 });
 
+const onHouseTypeSelectChange = () => {
+  const houseValue = houseTypeSelect.value;
+  if (houseValue === 'bungalow') {
+    priceInput.placeholder = '0';
+    priceInput.min = 0;
+  } else if (houseValue === 'flat') {
+    priceInput.placeholder = '1 000';
+    priceInput.min = 1000;
+  } else if (houseValue=== 'hotel') {
+    priceInput.placeholder = '3 000';
+    priceInput.min = 3000;
+  } else if (houseValue === 'house') {
+    priceInput.placeholder = '5 000';
+    priceInput.min = 5000;
+  } else if (houseValue === 'palace') {
+    priceInput.placeholder = '10 000';
+    priceInput.min = 10000;
+  }
+};
+houseTypeSelect.addEventListener('change', onHouseTypeSelectChange);
+
 priceInput.addEventListener('input', () => {
   const priceValue = priceInput.value;
-  if (priceValue > MAX_PRICE_VALUE) {
-    priceInput.setCustomValidity(`Макс. цена за ночь - ${ MAX_PRICE_VALUE}`);
+  if (priceValue < priceInput.min) {
     priceInput.style.boxShadow = '0 0 2px 2px red';
   } else {
     priceInput.setCustomValidity('');
@@ -53,7 +75,6 @@ priceInput.addEventListener('input', () => {
   }
   priceInput.reportValidity();
 });
-
 
 const onRoomCapacityChange = () => {
   const rooms = +roomNumberSelect.value;
@@ -75,6 +96,8 @@ const onRoomCapacityChange = () => {
 roomNumberSelect.addEventListener('change', onRoomCapacityChange);
 capacitySelect.addEventListener('change', onRoomCapacityChange);
 
+timeInSelect.addEventListener('change', () => timeOutSelect.value = timeInSelect.value);
+timeOutSelect.addEventListener('change', () => timeInSelect.value = timeOutSelect.value);
 
 form.addEventListener('submit', (evt) => {
   if (!capacitySelect.checkValidity()) {
