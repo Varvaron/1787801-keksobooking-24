@@ -18,6 +18,24 @@ const createErrorMessage = (message) => {
   return errorContainer;
 };
 
+const closeAnyMessage = (element) => {
+  const removeElement = () => {
+    element.remove();
+    document.removeEventListener('keydown', onEscKeydown);
+    window.removeEventListener('click', onWindowClick);
+  };
+  function onEscKeydown (evt) {
+    if (evt.key === 'Escape' || evt.key === 'Esc') {
+      evt.preventDefault();
+      removeElement();
+    }
+  }
+  function onWindowClick () {
+    removeElement();
+  }
+  document.addEventListener('keydown', onEscKeydown);
+  window.addEventListener('click', onWindowClick);
+};
 
 const showSuccessMessage = () => {
   const successTemplate = document.querySelector('#success').content.querySelector('.success');
@@ -32,17 +50,4 @@ const showErrorMessage = () => {
   document.body.append(errorMessage);
   return errorMessage;
 };
-
-const closeAnyMessage = (element) => {
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      evt.preventDefault();
-      element.classList.add('hidden');
-    }
-  });
-  window.addEventListener('click', () => {
-    element.classList.add('hidden');
-  });
-};
-
 export {createErrorMessage, showSuccessMessage, showErrorMessage, closeAnyMessage};

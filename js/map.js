@@ -1,19 +1,23 @@
 import {switchActiveMode, switchInactiveMode} from './form.js';
 import {renderPopup} from './similar-offers.js';
+import {getData} from './api.js';
 
 const DEFAULT_LAT = 35.681729;
 const DEFAULT_LNG = 139.753927;
+const MAP_ZOOM = 10;
+const MAIN_PIN_SIZE = 52;
+const PIN_SIZE = 40;
 const addressInput = document.querySelector('#address');
 switchInactiveMode();
 
 const map = L.map('map-canvas').on('load', () => {
   switchActiveMode();
-  addressInput.value = `${ DEFAULT_LAT}, ${DEFAULT_LNG}`;
+  getData();
 })
   .setView({
     lat: DEFAULT_LAT,
     lng: DEFAULT_LNG,
-  }, 10);
+  }, MAP_ZOOM);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -24,8 +28,8 @@ L.tileLayer(
 
 const mainPinIcon = L.icon({
   iconUrl: '/img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
+  iconSize: [MAIN_PIN_SIZE, MAIN_PIN_SIZE],
+  iconAnchor: [MAIN_PIN_SIZE/2, MAIN_PIN_SIZE],
 });
 
 
@@ -50,8 +54,8 @@ mainPin.on('moveend', (evt) => {
 
 const similarOfferIcon = L.icon({
   iconUrl: '/img/pin.svg',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  iconSize: [PIN_SIZE, PIN_SIZE],
+  iconAnchor: [PIN_SIZE/2, PIN_SIZE],
 });
 
 const markerGroup = L.layerGroup().addTo(map);

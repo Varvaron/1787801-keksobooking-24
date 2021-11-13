@@ -1,6 +1,17 @@
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 
+const MIN_PRICES = {
+  bungalow: 0,
+  flat: 1000,
+  hotel: 3000,
+  house: 5000,
+  palace: 10000,
+};
+
+const NUMBER_OF_ROOMS = 100;
+const CAPACITY_OF_GUESTS = 0;
+
 const form = document.querySelector('.ad-form');
 const titleInput = form.querySelector('#title');
 const priceInput = form.querySelector('#price');
@@ -45,24 +56,10 @@ titleInput.addEventListener('input', () => {
 });
 
 const onHouseTypeSelectChange = () => {
-  const houseValue = houseTypeSelect.value;
-  if (houseValue === 'bungalow') {
-    priceInput.placeholder = '0';
-    priceInput.min = 0;
-  } else if (houseValue === 'flat') {
-    priceInput.placeholder = '1 000';
-    priceInput.min = 1000;
-  } else if (houseValue=== 'hotel') {
-    priceInput.placeholder = '3 000';
-    priceInput.min = 3000;
-  } else if (houseValue === 'house') {
-    priceInput.placeholder = '5 000';
-    priceInput.min = 5000;
-  } else if (houseValue === 'palace') {
-    priceInput.placeholder = '10 000';
-    priceInput.min = 10000;
-  }
+  priceInput.placeholder = MIN_PRICES[houseTypeSelect.value];
+  priceInput.min = MIN_PRICES[houseTypeSelect.value];
 };
+
 houseTypeSelect.addEventListener('change', onHouseTypeSelectChange);
 
 priceInput.addEventListener('input', () => {
@@ -82,9 +79,9 @@ const onRoomCapacityChange = () => {
   capacitySelect.style.boxShadow = '0 0 2px 2px red';
   if (rooms < capacity) {
     capacitySelect.setCustomValidity('Кол-во гостей превышает кол-во комнат');
-  } else if (rooms === 100 && capacity !== 0) {
+  } else if (rooms === NUMBER_OF_ROOMS && capacity !== CAPACITY_OF_GUESTS) {
     capacitySelect.setCustomValidity('Для 100 комнат доступен только вариант "Не для гостей"');
-  } else if (rooms !== 100 && capacity === 0) {
+  } else if (rooms !== NUMBER_OF_ROOMS && capacity === CAPACITY_OF_GUESTS) {
     capacitySelect.setCustomValidity('Вариант "Не для гостей" доступен только для 100 комнат');
   } else {
     capacitySelect.setCustomValidity('');
@@ -106,4 +103,4 @@ form.addEventListener('submit', (evt) => {
   }
 });
 
-export {switchInactiveMode, switchActiveMode, form, mapFilters};
+export {switchInactiveMode, switchActiveMode, form, mapFilters, priceInput, MIN_PRICES};
