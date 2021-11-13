@@ -3,6 +3,11 @@ import {createMarker, deleteMarker} from './map.js';
 import {debounce} from './utils/debounce.js';
 
 const MAX_OFFERS_NUMBER = 10;
+const FILTER_PRICES = {
+  low: 10000,
+  high: 50000,
+};
+
 const housingType = mapFilters.querySelector('#housing-type');
 const housingPrice = mapFilters.querySelector('#housing-price');
 const housingRooms = mapFilters.querySelector('#housing-rooms');
@@ -11,9 +16,9 @@ const housingGuests = mapFilters.querySelector('#housing-guests');
 const chooseType = (offer) => offer.offer.type === housingType.value || housingType.value === 'any';
 
 const choosePrice = (offer) => housingPrice.value === 'any'
-  || offer.offer.price < 10000 && housingPrice.value === 'low'
-  || offer.offer.price >= 10000 && offer.offer.price < 50000 && housingPrice.value === 'middle'
-  || offer.offer.price >= 50000 && housingPrice.value === 'high';
+  || offer.offer.price < FILTER_PRICES.low && housingPrice.value === 'low'
+  || offer.offer.price >= FILTER_PRICES.low && offer.offer.price < FILTER_PRICES.high && housingPrice.value === 'middle'
+  || offer.offer.price >=  FILTER_PRICES.high && housingPrice.value === 'high';
 
 const chooseRooms = (offer) => offer.offer.rooms === +housingRooms.value || housingRooms.value === 'any';
 
@@ -38,14 +43,8 @@ const setFilterListener = (offers) => {
   },
   ));
 };
+
 const clearFilters = () => {
-  housingType.value = 'any';
-  housingPrice.value = 'any';
-  housingRooms.value = 'any';
-  housingGuests.value = 'any';
-  const housingFeatures = mapFilters.querySelectorAll('.map__checkbox:checked');
-  housingFeatures.forEach((housingFeature) => {
-    housingFeature.checked = false;
-  });
+  mapFilters.reset();
 };
 export {MAX_OFFERS_NUMBER, setFilterListener, clearFilters};

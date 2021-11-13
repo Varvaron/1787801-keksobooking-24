@@ -1,12 +1,13 @@
-import {createMarker} from './map.js';
 import {createErrorMessage, showSuccessMessage, showErrorMessage, closeAnyMessage} from './alerts.js';
+import {createMarker} from './map.js';
 import {form} from './form.js';
-import {MAX_OFFERS_NUMBER, setFilterListener} from './filters.js';
+import {setFilterListener, MAX_OFFERS_NUMBER} from './filters.js';
 import {updateData} from './reset-form.js';
 
+const API_URL = 'https://24.javascript.pages.academy/keksobooking';
 
 const getData = () => {
-  fetch('https://24.javascript.pages.academy/keksobooking/data')
+  fetch(`${API_URL}/data`)
     .then((response) => {
       if (response.ok) {
         return response;
@@ -27,7 +28,7 @@ const sendData = () => {
 
     const formData = new FormData(evt.target);
     fetch(
-      'https://24.javascript.pages.academy/keksobooking',
+      API_URL,
       {
         method: 'POST',
         body: formData,
@@ -35,8 +36,8 @@ const sendData = () => {
       },
     ).then((response) => {
       if (response.ok) {
-        showSuccessMessage();
         evt.target.reset();
+        showSuccessMessage();
         closeAnyMessage(document.querySelector('.success'));
       } else {
         showErrorMessage();
@@ -51,5 +52,5 @@ const sendData = () => {
 
 };
 
-getData();
 sendData();
+export {getData};
