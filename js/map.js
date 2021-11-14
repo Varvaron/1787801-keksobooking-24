@@ -82,7 +82,7 @@ const returnDefaultMapView = () => {
   map.setView({
     lat: DEFAULT_LAT,
     lng: DEFAULT_LNG,
-  }, 10);
+  }, MAP_ZOOM);
 
   mainPin.setLatLng({
     lat: DEFAULT_LAT,
